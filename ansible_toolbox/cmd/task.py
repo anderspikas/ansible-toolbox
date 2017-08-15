@@ -19,13 +19,12 @@ class App (BaseApp):
         args = self.parse_args()
         template = self.get_template('tasklist.yml')
 
-        with tempfile.NamedTemporaryFile(dir='.') as fd:
+        with tempfile.NamedTemporaryFile(mode='w', dir='.') as fd:
             fd.write(template.render(
                 tasklist=args.tasklist,
                 hosts=args.hosts,
                 gather=args.gather,
             ))
-
             fd.flush()
 
             cmd = ['ansible-playbook', fd.name]

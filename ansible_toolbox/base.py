@@ -48,7 +48,10 @@ class BaseApp (object):
 
     def parse_args(self):
         p = self.build_argument_parser()
-        return p.parse_args()
+        args = p.parse_args()
+        if args.connection is None and args.hosts == "localhost":
+            args.connection = "local"
+        return args
 
     def build_command_line(self, args):
         cmd = []
@@ -59,7 +62,7 @@ class BaseApp (object):
 
         if args.become:
             cmd.append('-b')
-            
+
         if args.ask_become_pass:
             cmd.append('-K')
 

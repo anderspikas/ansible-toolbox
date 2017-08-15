@@ -19,7 +19,7 @@ class App (BaseApp):
         args = self.parse_args()
         template = self.get_template('role.yml')
 
-        with tempfile.NamedTemporaryFile(dir='.') as fd:
+        with tempfile.NamedTemporaryFile(mode='w', dir='.') as fd:
             fd.write(template.render(
                 role=args.role,
                 hosts=args.hosts,
